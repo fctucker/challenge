@@ -4,13 +4,35 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p src/",
+    "build:watch": "tsc -p src/ -w",
+    "serve": "lite-server -c=bs-config.json",
+    "start": "concurrently 'npm run build:watch' 'npm run serve'"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
-    "typescript": "^2.4.2"
+    "typescript": "~2.1.0",
+     "concurrently": "^3.2.0",
+    "lite-server": "^2.2.2"
+  },
+  "dependencies": {
+    "@angular/common": "^4.0.3",
+    "@angular/compiler": "^4.0.3",
+    "@angular/core": "^4.0.3",
+    "@angular/forms": "^4.0.3",
+    "@angular/http": "^4.0.3",
+    "@angular/platform-browser": "^4.0.3",
+    "@angular/platform-browser-dynamic": "^4.0.3",
+    "@angular/router": "^4.0.3",
+    "angular-in-memory-web-api": "^0.3.2",
+    "core-js": "^2.5.0",
+    "i": "^0.3.5",
+    "npm": "^5.3.0",
+    "rxjs": "^5.0.1",
+    "systemjs": "^0.19.40",
+    "zone.js": "^0.8.16"
   }
 }
