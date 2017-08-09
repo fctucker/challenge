@@ -9,3 +9,4 @@ src/**/*.js.map
 !src/systemjs-angular-loader.js
 src/**/*.css
 src/**/*.css.map
+src/fonts/**.{eot,svg,ttf,woff,woff2,otf}
