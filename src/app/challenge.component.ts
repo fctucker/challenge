@@ -6,7 +6,9 @@ import $ from 'jquery';
 import {BaseType} from "d3-selection";
 import {Sky} from "./model/sky";
 import {Ground} from "./model/ground";
-import {appHeight, appWidth} from "./constants";
+import {appHeight, appWidth} from "./util/constants";
+import {Cloud} from "./model/cloud";
+import {Driver} from "./util/driver";
 
 @Component({
     selector: 'challenge',
@@ -27,7 +29,7 @@ import {appHeight, appWidth} from "./constants";
 export class ChallengeComponent implements OnInit, OnDestroy {
 
 
-    constructor() {
+    constructor(public driver: Driver) {
 
     }
 
@@ -45,6 +47,10 @@ export class ChallengeComponent implements OnInit, OnDestroy {
         // draw the ground
         var ground: Ground = new Ground();
         ground.draw(svg);
+
+        // draw the cloud
+        var cloud: Cloud = new Cloud(this.driver);
+        cloud.draw(svg);
 
     }
 

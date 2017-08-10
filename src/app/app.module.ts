@@ -4,6 +4,7 @@ import {AppComponent} from './app.component';
 import {RouterModule, Routes} from "@angular/router";
 import {ChallengeComponent} from "./challenge.component";
 import {AboutComponent} from "./about.component";
+import {Driver} from "./util/driver";
 
 
 const appRoutes: Routes = [
@@ -14,6 +15,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
+    providers: [Driver],
     declarations: [AppComponent, ChallengeComponent, AboutComponent],
     bootstrap: [AppComponent]
 })

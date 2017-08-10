@@ -1,5 +1,5 @@
 import {D3Object} from "./d3-object";
-import {appHeight, appWidth} from "../constants";
+import {appHeight, appWidth} from "../util/constants";
 
 export class Ground implements D3Object {
 
