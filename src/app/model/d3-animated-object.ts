@@ -6,6 +6,14 @@ export abstract class D3AnimatedObject implements D3Object {
     public enabled: boolean = true;
 
     constructor(public svg: any, public driver: Driver) {
+        driver.emitter.subscribe((eventType: string) => {
+            if (eventType == 'tick') {
+                this.move();
+            } else if (eventType == 'reset') {
+                this.reset();
+            }
+        });
+
         driver.emitter.subscribe((tick: boolean) => {
             this.move();
         })
@@ -13,6 +21,8 @@ export abstract class D3AnimatedObject implements D3Object {
     }
 
     abstract move(): void;
+
+    abstract reset(): void;
 
 
 }

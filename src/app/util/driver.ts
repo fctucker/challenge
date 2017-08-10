@@ -17,13 +17,20 @@ export class Driver {
     start(): void {
         this.timer = new TimerObservable(0, 15);
         this.subscription = this.timer.subscribe((time: number) => {
-            this.emitter.emit(true);
+            this.emitter.emit('tick');
         });
     }
 
     stop(): void {
-        this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
         this.timer = null;
+    }
+
+    reset(): void {
+        this.stop();
+        this.emitter.emit('reset');
     }
 
 

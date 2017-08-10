@@ -14,13 +14,15 @@ import {Driver} from "./util/driver";
     selector: 'challenge',
     template: `
         <div class="row">
-            <div class="col-md-12 text-center">
-                <h1>Challenge</h1>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-4 text-center" style="padding-top: 10px;">
-                <button class="btn btn-info" (click)="toggleState()">{{stateLabel}}&nbsp;&nbsp;&nbsp;<i class="fa" [ngClass]="stateClass" ></i></button>
+                
+            </div>
+            <div class="col-md-7 text-right" style="padding-top: 10px;">
+                <button class="btn" [ngClass]="btnClass" (click)="toggleState()">{{stateLabel}}&nbsp;&nbsp;&nbsp;<i
+                        class="fa" [ngClass]="iconClass"></i></button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-info" (click)="reset()">Reset&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>
+                </button>
             </div>
         </div>
         <div class="row">
@@ -34,17 +36,17 @@ import {Driver} from "./util/driver";
 export class ChallengeComponent implements OnInit, OnDestroy {
 
 
-    public stateClass:string = 'fa-play';
-    public stateLabel:string = 'Play';
-    public state:string = 'PAUSED';
+    public iconClass: string = 'fa-play';
+    public btnClass: string = 'btn-success';
+    public stateLabel: string = 'Play';
+    public state: string = 'PAUSED';
+
 
     constructor(public driver: Driver) {
 
     }
 
     ngOnInit(): void {
-        // d3.select("#challenge").append("span").text("Hello, world! 123");
-
 
         //Make an SVG Container
         var svg: any = d3.select("#challenge").append("svg").attr("width", appWidth).attr("height", appHeight);
@@ -58,7 +60,7 @@ export class ChallengeComponent implements OnInit, OnDestroy {
         ground.draw();
 
         // draw the cloud
-        var cloud: Cloud = new Cloud(svg,this.driver);
+        var cloud: Cloud = new Cloud(svg, this.driver);
         cloud.draw();
 
     }
@@ -67,18 +69,24 @@ export class ChallengeComponent implements OnInit, OnDestroy {
         console.log('destroy');
     }
 
-    toggleState(){
-        if(this.state=='PAUSED'){
+    toggleState(): void {
+        if (this.state == 'PAUSED') {
             this.stateLabel = 'Pause';
-            this.stateClass = 'fa-pause';
+            this.iconClass = 'fa-pause';
+            this.btnClass = 'btn-danger';
             this.state = 'PLAYING';
             this.driver.start();
-        }else{
+        } else {
             this.stateLabel = 'Play';
-            this.stateClass = 'fa-play';
+            this.iconClass = 'fa-play';
+            this.btnClass = 'btn-success';
             this.state = 'PAUSED';
             this.driver.stop();
         }
+    }
+
+    reset(): void {
+        this.driver.reset();
     }
 
 
