@@ -2,6 +2,8 @@ import {D3Object} from "./d3-object";
 import {appHeight, appWidth} from "../util/constants";
 
 export class Sky implements D3Object {
+    id: string;
+
 
     width: number = appWidth;
     height: number = appHeight;
@@ -9,9 +11,14 @@ export class Sky implements D3Object {
     y: number = 0;
     color: string = '#6698FF';
 
-    public draw(svg: any): void {
+    constructor(public svg:any){
+
+    }
+
+
+    public draw(): void {
         //Draw the Rectangle
-        var rectangle = svg.append("rect")
+        var rectangle = this.svg.append("rect")
             .attr("x", this.x)
             .attr("y", this.y)
             .attr("width", this.width)

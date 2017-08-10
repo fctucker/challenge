@@ -3,7 +3,9 @@ import {Driver} from "../util/driver";
 
 export abstract class D3AnimatedObject implements D3Object {
 
-    constructor(driver: Driver) {
+    public enabled: boolean = true;
+
+    constructor(public svg: any, public driver: Driver) {
         driver.emitter.subscribe((tick: boolean) => {
             this.move();
         })

@@ -19,6 +19,11 @@ import {Driver} from "./util/driver";
             </div>
         </div>
         <div class="row">
+            <div class="col-md-4 text-center" style="padding-top: 10px;">
+                <button class="btn btn-info" (click)="toggleState()">{{stateLabel}}&nbsp;&nbsp;&nbsp;<i class="fa" [ngClass]="stateClass" ></i></button>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12 text-center" style="padding-top: 25px;">
                 <div id="challenge"></div>
             </div>
@@ -28,6 +33,10 @@ import {Driver} from "./util/driver";
 })
 export class ChallengeComponent implements OnInit, OnDestroy {
 
+
+    public stateClass:string = 'fa-play';
+    public stateLabel:string = 'Play';
+    public state:string = 'PAUSED';
 
     constructor(public driver: Driver) {
 
@@ -41,21 +50,35 @@ export class ChallengeComponent implements OnInit, OnDestroy {
         var svg: any = d3.select("#challenge").append("svg").attr("width", appWidth).attr("height", appHeight);
 
         // draw the sky
-        var sky: Sky = new Sky();
-        sky.draw(svg);
+        var sky: Sky = new Sky(svg);
+        sky.draw();
 
         // draw the ground
-        var ground: Ground = new Ground();
-        ground.draw(svg);
+        var ground: Ground = new Ground(svg);
+        ground.draw();
 
         // draw the cloud
-        var cloud: Cloud = new Cloud(this.driver);
-        cloud.draw(svg);
+        var cloud: Cloud = new Cloud(svg,this.driver);
+        cloud.draw();
 
     }
 
     ngOnDestroy(): void {
         console.log('destroy');
+    }
+
+    toggleState(){
+        if(this.state=='PAUSED'){
+            this.stateLabel = 'Pause';
+            this.stateClass = 'fa-pause';
+            this.state = 'PLAYING';
+            this.driver.start();
+        }else{
+            this.stateLabel = 'Play';
+            this.stateClass = 'fa-play';
+            this.state = 'PAUSED';
+            this.driver.stop();
+        }
     }
 
 

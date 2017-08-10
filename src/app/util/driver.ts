@@ -10,18 +10,21 @@ export class Driver {
     private subscription: Subscription;
 
     constructor() {
+
+    }
+
+
+    start(): void {
         this.timer = new TimerObservable(0, 15);
         this.subscription = this.timer.subscribe((time: number) => {
             this.emitter.emit(true);
         });
     }
 
-    //
-    // stopDriver(): void {
-    //     // console.log('destroy');
-    //     // this.subscription.unsubscribe();
-    //     // this.timer = null;
-    // }
+    stop(): void {
+        this.subscription.unsubscribe();
+        this.timer = null;
+    }
 
 
 }
