@@ -8,48 +8,41 @@ import {selection} from "d3-selection";
 import {appHeight} from "../../util/constants";
 import {Ground} from "../../world/ground";
 
-export class Rain extends Weather {
-
+export class Snow extends Weather {
 
     transitionIn(): Promise {
 
 
         var sky: Sky = <Sky>this.driver.getComponent('sky');
-        sky.transitionAttributes({'fill': '#90C9DD'}, 1000);
+        sky.transitionAttributes({'fill': '#a3b0b7'}, 1000);
 
         var sun: Sun = <Sun>this.driver.getComponent('sun');
         sun.hide();
 
         var clouds: Clouds = <Clouds>this.driver.getComponent('clouds');
-        clouds.transitionAttributes({'fill': '#B6B6B4'}, 1000);
+        clouds.transitionAttributes({'fill': '#e4e8ea'}, 1000);
         clouds.show();
 
         return Promise.all([sky.ready(), sun.ready(), clouds.ready()]);
     }
 
-
     getName(): string {
-        return 'rain';
+        return 'snow';
     }
 
     getLabel(): string {
-        return 'Rain';
+        return 'Snow';
     }
 
 
     addParticle(x: number, y: number): void {
 
-
-        var line = this.driver.svg.append("line")
+        var circle = this.driver.svg.append("circle")
             .attr('class', this.getName())
-            .attr('x1', x)
-            .attr('y1', y)
-            .attr('x2', x + 15)
-            .attr('y2', y + 15)
-            .attr('stroke', '#034aec')
-            .attr('stroke-width', 2)
-            .attr('stroke', '#034aec');
-
+            .attr('cx', x)
+            .attr('cy', y)
+            .attr('r', 5)
+            .attr('fill', 'white')
 
     }
 
@@ -58,23 +51,18 @@ export class Rain extends Weather {
         var selection: d3.Selection = this.driver.svg.selectAll('.' + this.getName());
 
         selection.each((d: any, i: number, arr: any[]) => {
-            var drop: Element = arr[i];
-            var x1: number = parseInt(drop.getAttribute('x1'));
-            var y1: number = parseInt(drop.getAttribute('y1'));
-            var x2: number = parseInt(drop.getAttribute('x2'));
-            var y2: number = parseInt(drop.getAttribute('y2'));
+            var flake: Element = arr[i];
+            var cx: number = parseInt(flake.getAttribute('cx'));
+            var cy: number = parseInt(flake.getAttribute('cy'));
+            var r: number = parseInt(flake.getAttribute('r'));
 
 
-            if (y1 + dy > appHeight - (<Ground>this.driver.getComponent('ground')).groundLevel) {
-                drop.remove();
+            if (cy + r + dy > appHeight-(<Ground>this.driver.getComponent('ground')).groundLevel) {
+                flake.remove();
             } else {
-                drop.setAttribute('x1', x1 + dx);
-                drop.setAttribute('y1', y1 + dy);
-                drop.setAttribute('x2', x2 + dx);
-                drop.setAttribute('y2', y2 + dy);
+                flake.setAttribute('cx', cx + dx);
+                flake.setAttribute('cy', cy + dy);
             }
-
-
         })
     }
 
@@ -83,6 +71,10 @@ export class Rain extends Weather {
             forceX: 5,
             forceY: 0
         };
+    }
+
+    getDensity(): number {
+        return 100;
     }
 
 

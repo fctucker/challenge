@@ -11,6 +11,7 @@ import {Rain} from "./weather/plugins/rain";
 import {Weather} from "./weather/weather";
 import {Sun} from "./world/sun";
 import {Clear} from "./weather/plugins/clear";
+import {Snow} from "./weather/plugins/snow";
 
 @Component({
     selector: 'challenge',
@@ -73,6 +74,7 @@ export class ChallengeComponent implements OnInit, OnDestroy {
 
         this.driver.addWeatherType(new Clear(this.driver));
         this.driver.addWeatherType(new Rain(this.driver));
+        this.driver.addWeatherType(new Snow(this.driver));
 
         this.weatherTypes = this.driver.getWeatherTypes();
         this.weatherTypeName = this.weatherTypes[0].getName();
@@ -106,6 +108,7 @@ export class ChallengeComponent implements OnInit, OnDestroy {
             this.retriggerWeather = false;
             this.changeWeatherType();
         }
+        this.weatherType.enabled = true;
     }
 
     pause(): void {
@@ -114,6 +117,7 @@ export class ChallengeComponent implements OnInit, OnDestroy {
         this.btnClass = 'btn-success';
         this.state = 'PAUSED';
         this.driver.pause();
+        this.weatherType.enabled = false;
     }
 
     reset(): void {
@@ -121,6 +125,7 @@ export class ChallengeComponent implements OnInit, OnDestroy {
         this.driver.reset();
         this.retriggerWeather = true;
         this.isTransitining = false;
+        this.weatherType.enabled = false;
     }
 
 
@@ -135,9 +140,12 @@ export class ChallengeComponent implements OnInit, OnDestroy {
             }
             newWeatherType.transitionIn().then(() => {
                 this.isTransitining = false;
-                newWeatherType.run()
+                newWeatherType.enabled = true;
+                newWeatherType.run();
+
             });
             this.weatherType = newWeatherType;
+
 
         }
     }

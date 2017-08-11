@@ -23,7 +23,7 @@ export class Driver {
     }
 
     play(): void {
-        this.timer = new TimerObservable(0, 15);
+        this.timer = new TimerObservable(0, 10);
         this.subscription = this.timer.subscribe((time: number) => {
             this.emitter.emit('tick');
         });

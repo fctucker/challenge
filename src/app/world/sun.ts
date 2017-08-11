@@ -40,7 +40,7 @@ export class Sun extends WorldObject {
             var attributes: { [name: string]: any } = {
                 transform: 'translate(-' + this.translateXOffset + ',' + this.translateYOffset + ')'
             };
-            this.transitionAttributes(attributes, 2000, d3.easeBounceInOut);
+            this.transitionAttributes(attributes, 1000, d3.easeBounceInOut);
         }
     }
 
@@ -50,7 +50,7 @@ export class Sun extends WorldObject {
             var attributes: { [name: string]: any } = {
                 transform: 'translate(' + this.translateXOffset + ',-' + this.translateYOffset + ')'
             };
-            this.transitionAttributes(attributes, 2000);
+            this.transitionAttributes(attributes, 1000);
         }
 
     }

@@ -21,9 +21,6 @@ export class Clear extends Weather {
         return Promise.all([sky.ready(), sun.ready(), clouds.ready()]);
     }
 
-    transitionOut(): void {
-    }
-
     getName(): string {
         return 'clear';
     }
@@ -36,13 +33,15 @@ export class Clear extends Weather {
         // do nothing, weather is clear
     }
 
-    moveParticle(dx: number, dy: number): void {
+    moveParticles(dx: number, dy: number): void {
         // do nothing, weather is clear
     }
 
     getWind(): Wind {
         return {forceX: 0, forceY: 0};
     }
+
+
 
 
 }
