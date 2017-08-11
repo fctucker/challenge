@@ -6,10 +6,10 @@ import {Sun} from "../../world/sun";
 export class Clear extends Weather {
 
 
-    transistionIn() {
+    transitionIn() {
 
         var sky: Sky = <Sky>this.driver.getComponent('sky');
-        sky.transistionAttributes({'fill': '#6698FF'}, 1000);
+        sky.transitionAttributes({'fill': '#6698FF'}, 1000);
 
         var clouds: Clouds = <Clouds>this.driver.getComponent('clouds');
         clouds.hide();
@@ -20,7 +20,7 @@ export class Clear extends Weather {
 
     }
 
-    transistionOut() {
+    transitionOut() {
     }
 
     getName(): string {

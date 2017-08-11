@@ -6,9 +6,9 @@ export abstract class Weather {
 
     }
 
-    abstract transistionIn(): void;
+    abstract transitionIn(): void;
 
-    abstract transistionOut();
+    abstract transitionOut();
 
     abstract getName(): string;
 

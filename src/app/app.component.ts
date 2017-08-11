@@ -17,7 +17,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" routerLink="/">Challenge</a>
+                    <a class="navbar-brand" routerLink="/">Frederick C. Tucker</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">

@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 
 export class Sun extends WorldObject {
 
+
     public r: number = 75;
     public isShowing: boolean = false;
     private translateXOffset: number = 4.5 * this.r;
@@ -39,8 +40,7 @@ export class Sun extends WorldObject {
             var attributes: { [name: string]: any } = {
                 transform: 'translate(-' + this.translateXOffset + ',' + this.translateYOffset + ')'
             };
-            this.transistionAttributes(attributes, 1500, d3.easeBounceInOut);
-
+            this.transitionAttributes(attributes, 2000, d3.easeBounceInOut);
         }
     }
 
@@ -50,7 +50,7 @@ export class Sun extends WorldObject {
             var attributes: { [name: string]: any } = {
                 transform: 'translate(' + this.translateXOffset + ',-' + this.translateYOffset + ')'
             };
-            this.transistionAttributes(attributes, 1000);
+            this.transitionAttributes(attributes, 2000);
         }
 
     }

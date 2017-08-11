@@ -69,7 +69,6 @@ export class Driver {
         for (var key in this.weatherTypes) {
             output.push(this.weatherTypes[key]);
         }
-
         return output;
     }
 }

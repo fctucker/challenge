@@ -41,7 +41,7 @@ export class Clouds extends WorldObject {
             var attributes: { [name: string]: any } = {
                 transform: 'translate(' + this.translateOffset + ',0)'
             };
-            this.transistionAttributes(attributes, 1000);
+            this.transitionAttributes(attributes, 1000);
         }
     }
 
@@ -51,7 +51,7 @@ export class Clouds extends WorldObject {
             var attributes: { [name: string]: any } = {
                 transform: 'translate(-' + this.translateOffset + ',0)'
             };
-            this.transistionAttributes(attributes, 1000);
+            this.transitionAttributes(attributes, 1000);
         }
 
     }

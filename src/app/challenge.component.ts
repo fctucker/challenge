@@ -22,6 +22,7 @@ import {Clear} from "./weather/plugins/clear";
                     <label class="form-check-label">
                         <input class="form-check-input" type="radio" name="weather-type" id="{{w.getName()}}"
                                value="{{w.getName()}}"
+                               [disabled]="state!='PLAYING'"
                                [(ngModel)]="weatherTypeName" (change)="changeWeatherType()"> {{w.getLabel()}}
                     </label>
                 </div>
@@ -54,7 +55,7 @@ export class ChallengeComponent implements OnInit, OnDestroy {
     public weatherTypeName: string = 'clear';
     public weatherTypes: Weather[] = [];
     public weatherType: Weather = null;
-
+    public retriggerWeather:boolean = false;
     constructor(public driver: Driver) {
 
     }
@@ -77,6 +78,7 @@ export class ChallengeComponent implements OnInit, OnDestroy {
 
         this.weatherTypeName = this.weatherTypes[0].getName();
         this.play();
+        this.changeWeatherType();
 
     }
 
@@ -99,8 +101,10 @@ export class ChallengeComponent implements OnInit, OnDestroy {
         this.btnClass = 'btn-danger';
         this.state = 'PLAYING';
         this.driver.play();
-        this.changeWeatherType();
-
+        if(this.retriggerWeather){
+            this.retriggerWeather = false;
+            this.changeWeatherType();
+        }
     }
 
     pause(): void {
@@ -114,17 +118,19 @@ export class ChallengeComponent implements OnInit, OnDestroy {
     reset(): void {
         this.pause();
         this.driver.reset();
+        this.retriggerWeather = true;
     }
 
 
     changeWeatherType() {
+
         if (this.state == 'PLAYING') {
             this.driver.triggerChangeWeatherTypeEvent();
             var newWeatherType: Weather = this.driver.getWeatherType(this.weatherTypeName);
             if (this.weatherType != null) {
-                this.weatherType.transistionOut();
+                this.weatherType.transitionOut();
             }
-            newWeatherType.transistionIn();
+            newWeatherType.transitionIn();
             this.weatherType = newWeatherType;
 
         }
