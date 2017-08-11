@@ -11,11 +11,17 @@ export abstract class WorldObject {
     constructor(public driver: Driver) {
         this.driver.emitter.subscribe((eventType: string) => {
             if (eventType == 'reset') {
-                this.initialize();
+                this.getSelection().interrupt();
                 this.transistion = null;
+                this.initialize();
             } else if (eventType == 'play') {
-
-            } else if ((eventType == 'pause') || (eventType == 'changeWeatherType')) {
+                // this.getSelection().transition().duration(1000);
+            } else if (eventType == 'pause') {
+                // if (this.transistion) {
+                //     this.transistion.duration(0);
+                // this.getSelection().transition().duration(0);
+                // }
+            } else if (eventType == 'changeWeatherType') {
                 this.getSelection().interrupt();
                 this.transistion = null;
             } else if (eventType == 'tick') {
@@ -31,10 +37,14 @@ export abstract class WorldObject {
 
     public abstract getSelection(): d3.Selection;
 
-    public transistionAttributes(attributes: { [name: string]: any }, duration?: number): void {
+    public transistionAttributes(attributes: { [name: string]: any }, duration?: number, ease?: (normalizedTime: number) => number): void {
 
         if (!this.transistion) {
-            this.transistion = this.getSelection().transition();
+            this.transistion = this.getSelection().transition()
+        }
+
+        if (ease) {
+            this.transistion.ease(d3.easeBounceInOut);
         }
 
         if (duration) {

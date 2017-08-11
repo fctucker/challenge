@@ -10,7 +10,7 @@ export class Sun extends WorldObject {
     private translateYOffset: number = 4.5 * this.r;
 
     initialize(): void {
-
+        this.isShowing = false;
         var cx: number = appWidth + 3 * this.r;
         var cy: number = -3 * this.r;
 
@@ -39,7 +39,7 @@ export class Sun extends WorldObject {
             var attributes: { [name: string]: any } = {
                 transform: 'translate(-' + this.translateXOffset + ',' + this.translateYOffset + ')'
             };
-            this.transistionAttributes(attributes, 1000);
+            this.transistionAttributes(attributes, 1500, d3.easeBounceInOut);
 
         }
     }

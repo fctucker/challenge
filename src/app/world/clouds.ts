@@ -12,6 +12,7 @@ export class Clouds extends WorldObject {
 
     initialize(): void {
 
+        this.isShowing = false;
         var cx: number = appWidth - this.r;
         var cy: number = Math.floor(this.r / 5);
 
