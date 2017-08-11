@@ -55,7 +55,8 @@ export class ChallengeComponent implements OnInit, OnDestroy {
     public weatherTypeName: string = 'clear';
     public weatherTypes: Weather[] = [];
     public weatherType: Weather = null;
-    public retriggerWeather:boolean = false;
+    public retriggerWeather: boolean = false;
+
     constructor(public driver: Driver) {
 
     }
@@ -74,11 +75,11 @@ export class ChallengeComponent implements OnInit, OnDestroy {
         this.driver.addWeatherType(new Rain(this.driver));
 
         this.weatherTypes = this.driver.getWeatherTypes();
-
-
         this.weatherTypeName = this.weatherTypes[0].getName();
+
+        this.retriggerWeather = true;
         this.play();
-        this.changeWeatherType();
+
 
     }
 
@@ -101,7 +102,7 @@ export class ChallengeComponent implements OnInit, OnDestroy {
         this.btnClass = 'btn-danger';
         this.state = 'PLAYING';
         this.driver.play();
-        if(this.retriggerWeather){
+        if (this.retriggerWeather) {
             this.retriggerWeather = false;
             this.changeWeatherType();
         }
@@ -122,7 +123,7 @@ export class ChallengeComponent implements OnInit, OnDestroy {
     }
 
 
-    changeWeatherType() {
+    changeWeatherType(): void {
 
         if (this.state == 'PLAYING') {
             this.driver.triggerChangeWeatherTypeEvent();

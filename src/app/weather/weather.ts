@@ -14,5 +14,6 @@ export abstract class Weather {
 
     abstract getLabel(): string;
 
+    abstract addParticle(x: number, y: number): void;
 
 }
