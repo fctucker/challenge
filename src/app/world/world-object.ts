@@ -79,7 +79,6 @@ export abstract class WorldObject {
         }
         this.transition.attr("T", 1);
 
-
     }
 
 
@@ -98,4 +97,17 @@ export abstract class WorldObject {
         };
     }
 
+    public ready(): Promise {
+        var that: WorldObject = this;
+        if (this.transition) {
+            return new Promise((resolve) => {
+                that.transition.on("end", resolve);
+            });
+        } else {
+            return new Promise((resolve: any) => {
+                resolve();
+            })
+        }
+
+    }
 }

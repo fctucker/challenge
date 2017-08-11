@@ -18,19 +18,18 @@ import {Clear} from "./weather/plugins/clear";
         <div class="row">
             <div class="col-md-4 text-center" style="padding-top: 10px;">
 
-                <div class="form-check form-check-inline" *ngFor="let w of weatherTypes">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="weather-type" id="{{w.getName()}}"
-                               value="{{w.getName()}}"
-                               [disabled]="state!='PLAYING'"
-                               [(ngModel)]="weatherTypeName" (change)="changeWeatherType()"> {{w.getLabel()}}
-                    </label>
-                </div>
+
+                <label class="radio-inline" *ngFor="let w of weatherTypes">
+                    <input type="radio" name="weather-type" id="{{w.getName()}}"
+                           value="{{w.getName()}}" [disabled]="state!='PLAYING'"
+                           [(ngModel)]="weatherTypeName" (change)="changeWeatherType()">
+                    {{w.getLabel()}}
+                </label>
 
 
             </div>
             <div class="col-md-7 text-right" style="padding-top: 10px;">
-                <button class="btn" [ngClass]="btnClass" (click)="toggleState()">{{stateLabel}}&nbsp;&nbsp;&nbsp;<i
+                <button [disabled]="isTransitining" class="btn" [ngClass]="btnClass" (click)="toggleState()">{{stateLabel}}&nbsp;&nbsp;&nbsp;<i
                         class="fa" [ngClass]="iconClass"></i></button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button class="btn btn-info" (click)="reset()">Reset&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh"></i>
@@ -56,6 +55,7 @@ export class ChallengeComponent implements OnInit, OnDestroy {
     public weatherTypes: Weather[] = [];
     public weatherType: Weather = null;
     public retriggerWeather: boolean = false;
+    public isTransitining: boolean = false;
 
     constructor(public driver: Driver) {
 
@@ -120,18 +120,23 @@ export class ChallengeComponent implements OnInit, OnDestroy {
         this.pause();
         this.driver.reset();
         this.retriggerWeather = true;
+        this.isTransitining = false;
     }
 
 
     changeWeatherType(): void {
 
         if (this.state == 'PLAYING') {
+            this.isTransitining = true;
             this.driver.triggerChangeWeatherTypeEvent();
             var newWeatherType: Weather = this.driver.getWeatherType(this.weatherTypeName);
             if (this.weatherType != null) {
                 this.weatherType.transitionOut();
             }
-            newWeatherType.transitionIn();
+            newWeatherType.transitionIn().then(() => {
+                this.isTransitining = false;
+                newWeatherType.run()
+            });
             this.weatherType = newWeatherType;
 
         }
