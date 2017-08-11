@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Angular QuickStart</title>
+<head>
+    <title>Challenge</title>
     <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/main.css">
+    <!--<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>-->
+    <link rel="shortcut icon"  type="image/x-icon" href="favicon.ico?" >
+
 
     <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
@@ -15,11 +18,13 @@
 
     <script src="systemjs.config.js"></script>
     <script>
-      System.import('main.js').catch(function(err){ console.error(err); });
+        System.import('main.js').catch(function (err) {
+            console.error(err);
+        });
     </script>
-  </head>
+</head>
 
-  <body>
-    <my-app>Loading...</my-app>
-  </body>
+<body>
+<my-app>Loading...</my-app>
+</body>
 </html>

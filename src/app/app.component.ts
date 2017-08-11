@@ -33,7 +33,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 
 
         <footer class="footer-no-nav navbar-static-bottom text-center" role="contentinfo" style="margin-bottom: 15px; margin-top: 25px;">
-            Frederick C. Tucker (f.c.tucker.09@gmail.com)
+            Frederick C. Tucker ( f.c.tucker.09@gmail.com )
         </footer>
 
     `

@@ -2,20 +2,31 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 
 
 import * as d3 from 'd3';
-import $ from 'jquery';
-import {BaseType} from "d3-selection";
-import {Sky} from "./model/sky";
-import {Ground} from "./model/ground";
 import {appHeight, appWidth} from "./util/constants";
-import {Cloud} from "./model/cloud";
 import {Driver} from "./util/driver";
+import {Ground} from "./world/ground";
+import {Sky} from "./world/sky";
+import {Clouds} from "./world/clouds";
+import {Rain} from "./weather/plugins/rain";
+import {Weather} from "./weather/weather";
+import {Sun} from "./world/sun";
+import {Clear} from "./weather/plugins/clear";
 
 @Component({
     selector: 'challenge',
     template: `
         <div class="row">
             <div class="col-md-4 text-center" style="padding-top: 10px;">
-                
+
+                <div class="form-check form-check-inline" *ngFor="let w of weatherTypes">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="weather-type" id="{{w.getName()}}"
+                               value="{{w.getName()}}"
+                               [(ngModel)]="weatherTypeName" (change)="changeWeatherType()"> {{w.getLabel()}}
+                    </label>
+                </div>
+
+
             </div>
             <div class="col-md-7 text-right" style="padding-top: 10px;">
                 <button class="btn" [ngClass]="btnClass" (click)="toggleState()">{{stateLabel}}&nbsp;&nbsp;&nbsp;<i
@@ -40,7 +51,9 @@ export class ChallengeComponent implements OnInit, OnDestroy {
     public btnClass: string = 'btn-success';
     public stateLabel: string = 'Play';
     public state: string = 'PAUSED';
-
+    public weatherTypeName: string = 'clear';
+    public weatherTypes: Weather[] = [];
+    public weatherType: Weather = null;
 
     constructor(public driver: Driver) {
 
@@ -49,45 +62,72 @@ export class ChallengeComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
 
         //Make an SVG Container
-        var svg: any = d3.select("#challenge").append("svg").attr("width", appWidth).attr("height", appHeight);
+        this.driver.svg = <d3.Selection>d3.select("#challenge").append("svg").attr("width", appWidth).attr("height", appHeight);
+        this.driver.addComponent(new Sky(this.driver), 'sky');
+        this.driver.addComponent(new Ground(this.driver), 'ground');
+        this.driver.addComponent(new Clouds(this.driver), 'clouds');
+        this.driver.addComponent(new Sun(this.driver), 'sun');
 
-        // draw the sky
-        var sky: Sky = new Sky(svg);
-        sky.draw();
 
-        // draw the ground
-        var ground: Ground = new Ground(svg);
-        ground.draw();
+        this.driver.addWeatherType(new Clear(this.driver));
+        this.driver.addWeatherType(new Rain(this.driver));
 
-        // draw the cloud
-        var cloud: Cloud = new Cloud(svg, this.driver);
-        cloud.draw();
+        this.weatherTypes = this.driver.getWeatherTypes();
+
+
+        this.weatherTypeName = this.weatherTypes[0].getName();
+        this.play();
 
     }
 
     ngOnDestroy(): void {
-        console.log('destroy');
+        this.reset();
     }
 
     toggleState(): void {
         if (this.state == 'PAUSED') {
-            this.stateLabel = 'Pause';
-            this.iconClass = 'fa-pause';
-            this.btnClass = 'btn-danger';
-            this.state = 'PLAYING';
-            this.driver.start();
+            this.play();
         } else {
-            this.stateLabel = 'Play';
-            this.iconClass = 'fa-play';
-            this.btnClass = 'btn-success';
-            this.state = 'PAUSED';
-            this.driver.stop();
+            this.pause();
         }
     }
 
+
+    play(): void {
+        this.stateLabel = 'Pause';
+        this.iconClass = 'fa-pause';
+        this.btnClass = 'btn-danger';
+        this.state = 'PLAYING';
+        this.driver.play();
+        this.changeWeatherType();
+
+    }
+
+    pause(): void {
+        this.stateLabel = 'Play';
+        this.iconClass = 'fa-play';
+        this.btnClass = 'btn-success';
+        this.state = 'PAUSED';
+        this.driver.pause();
+    }
+
     reset(): void {
+        this.pause();
         this.driver.reset();
     }
 
+
+    changeWeatherType() {
+        if (this.state == 'PLAYING') {
+            this.driver.triggerChangeWeatherTypeEvent();
+            var newWeatherType: Weather = this.driver.getWeatherType(this.weatherTypeName);
+            if (this.weatherType != null) {
+                this.weatherType.transistionOut();
+            }
+            newWeatherType.transistionIn();
+            this.weatherType = newWeatherType;
+
+        }
+    }
 
 }

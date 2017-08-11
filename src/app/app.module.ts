@@ -5,6 +5,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {ChallengeComponent} from "./challenge.component";
 import {AboutComponent} from "./about.component";
 import {Driver} from "./util/driver";
+import {FormsModule} from "@angular/forms";
 
 
 const appRoutes: Routes = [
@@ -14,7 +15,7 @@ const appRoutes: Routes = [
 
 
 @NgModule({
-    imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
+    imports: [BrowserModule, RouterModule.forRoot(appRoutes),FormsModule],
     providers: [Driver],
     declarations: [AppComponent, ChallengeComponent, AboutComponent],
     bootstrap: [AppComponent]

@@ -47,7 +47,6 @@
             'd3': {defaultExtention: 'js', main: 'build/d3.js'},
             'jquery': {defaultExtention: 'js', main: 'dist/jquery.js'},
             'bootstrap': {defaultExtention: 'js', main: 'dist/js/bootstrap.js'}
-
         }
     });
 })(this);
