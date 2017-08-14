@@ -9,7 +9,7 @@ export abstract class Weather {
     public enabled: boolean = false;
     public gravity: {} = {dx: 0, dy: 5};
     private subscription: Subscription = null;
-    private isTransitioningOut: boolean = false;
+    public isTransitioningOut: boolean = false;
 
     constructor(public driver: Driver) {
 
@@ -21,16 +21,13 @@ export abstract class Weather {
                     var dx: number = ((this.driver.windDirection == 'RIGHT') ? 1 : -1) * this.driver.windSpeed + this.gravity['dx'];
                     var dy: number = this.gravity['dy'];
                     this.moveParticles(dx, dy);
-                    if (this.isTransitioningOut) {
-                        this.isTransitioningOut = false;
-                        this.enabled = false;
-                        this.remove();
-                    }
+
                     if (!this.isTransitioningOut) {
                         for (var i: number = 0; i < 10; i++) {
                             this.addParticle(Math.floor((Math.random() * 4 * appWidth) - 1.5 * appWidth), 100);
                         }
                     }
+
                 }
             }
 
@@ -59,17 +56,16 @@ export abstract class Weather {
         this.enabled = true;
     }
 
-    private getSelection(): d3.Selection {
-        return this.driver.svg.selectAll('.' + this.getName());
-    }
-
-    private remove(): d3.Selection {
-        return this.getSelection().remove();
-    }
-
-    private getNumParticles(): number {
-        return this.getSelection().size();
-    }
+    // private getSelection(): d3.Selection {
+    //     return this.driver.svg.selectAll('.' + this.getName());
+    // }
+    // private remove(): d3.Selection {
+    //     return this.getSelection().remove();
+    // }
+    //
+    // private getNumParticles(): number {
+    //     return this.getSelection().size();
+    // }
 
 
 }

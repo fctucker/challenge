@@ -161,21 +161,21 @@ export class ChallengeComponent implements OnInit, OnDestroy {
             if (this.weatherType != null) {
                 this.weatherType.transitionOut();
             }
-            this.weatherType = newWeatherType;
-            this.weatherType.transitionIn().then(() => {
-                this.isTransitining = false;
-                this.weatherType.enabled = true;
-                this.weatherType.run();
 
+            newWeatherType.transitionIn().then(() => {
+                this.isTransitining = false;
+                newWeatherType.enabled = true;
+                newWeatherType.run();
+                this.weatherType.isTransitioningOut = false;
             });
+
+            this.weatherType = newWeatherType;
 
 
         }
     }
 
     changeWind(): void {
-        // this.driver.setWind(this.windDirection, this.windSpeed);
-        console.log('wind', this.windDirection, this.windSpeed);
         this.driver.windSpeed = this.windSpeed;
         this.driver.windDirection = this.windDirection;
     }

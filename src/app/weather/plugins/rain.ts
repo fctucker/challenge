@@ -57,12 +57,9 @@ export class Rain extends Weather {
             .attr('y1', y)
             .attr('x2', x2)
             .attr('y2', y2)
-
             .attr('stroke', '#034aec')
             .attr('stroke-width', 2)
             .attr('stroke', '#034aec');
-
-
     }
 
     moveParticles(dx: number, dy: number): void {
@@ -86,7 +83,6 @@ export class Rain extends Weather {
                 y2 = y1 + this.dropLen * Math.cos(theta);
             }
 
-
             if (y2 + dy > appHeight - (<Ground>this.driver.getComponent('ground')).groundLevel) {
                 drop.remove();
             } else {
@@ -95,8 +91,6 @@ export class Rain extends Weather {
                 drop.setAttribute('x2', "" + x2);
                 drop.setAttribute('y2', "" + y2);
             }
-
-
         })
     }
 
