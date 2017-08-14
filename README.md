@@ -6,7 +6,7 @@ This is a coding challenge solution for the "In-browser Particle System" defined
 
 The solution is hosted live on AWS [here](http://52.7.185.39/).
 
-n.b. ths application was deveoped using Google Chrome.  For best performance, please use Google Chrome.
+n.b. This application was deveoped using Google Chrome.  For best performance, please use Google Chrome.
 
 # Build & Run
 
@@ -33,12 +33,12 @@ This project is build with the following technologies:
    
 # Adding Plugins
 
-If you want to add more simulations for different type of weather, you can add a typescript file in the  `app/weather/pluggins` folder.  Create a class that extends the `Weather` abstract class.  You will need to code the following methods to integrate with the application:
+If you want to add more simulations for different types of weather, you can add a typescript file in the  `app/weather/plugins` folder.  Create a class that extends the `Weather` abstract class.  You will need to code the following methods to integrate with the application:
     
     * `transitionIn`: Describe the weather for the simulation including the sun, sky, ground, etc.
     * `getName`: Assign an internal name for your weather simulation
     * `getLabel`: Have a user friendly label to be displayed in the app to describe your weather simulation
-    * `addParticle` Call the appropirate D3 API to render a particle on the d3 SVG canvas
+    * `addParticle` Call the appropirate D3 APIs to render a particle on the d3 SVG canvas
     * `moveParticles` A method to describe the movement of a particle
     
 Furthurmore you will need to register the new weather type with the application.  This can be done in `src/challenge.component.ts` by adding a line similar to the below in the `ngOnInit` method:
