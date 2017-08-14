@@ -42,5 +42,6 @@ If you want to add more simulations for different types of weather, you can add 
     * `addParticle`: Call the appropirate D3 APIs to render a particle on the d3 SVG canvas
     * `moveParticles`: A method to describe the movement of a particle
     
-Furthurmore you will need to register the new weather type with the application.  This can be done in `src/challenge.component.ts` by adding a line similar to the below in the `ngOnInit` method:
+Furthermore you will need to register the new weather type with the application.  This can be done in the file `src/challenge.component.ts` by adding a line in the `ngOnInit` method similar to the below :
+
 `this.driver.addWeatherType(new Rain(this.driver));`
