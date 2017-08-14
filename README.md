@@ -6,7 +6,7 @@ This is a coding challenge solution for the "In-browser Particle System" defined
 
 The solution is hosted live on AWS [here](http://52.7.185.39/).
 
-Please not that this application was developed using Google Chrome.  For best performance, please use Google Chrome.
+Please note that this application was developed using Google Chrome.  For best performance, please use Google Chrome.
 
 # Build & Run
 
@@ -14,7 +14,7 @@ To run the solution on your local machine please follow the instructions below:
 
 1. Install nodejs version 7.10.1
 2. Git clone the project `git clone https://github.com/fctucker/challenge.git`
-3. On the command line, navigate to the the project and run the following command: `npm install && npm run start`.  This should automatically open a tab in your browser to the application.  You can also navigate to the following URL to view the application while it is running: [http://localhost:3000/about](http://localhost:3000)
+3. On the command line, navigate to the the project and run the following command: `npm install && npm run start`.  This should automatically open a tab in your browser to the application.  You can also navigate to the following URL to view the application while it is running: [http://localhost:3000](http://localhost:3000)
 
 # Description
 
@@ -30,7 +30,7 @@ This project is build with the following technologies:
     * Bootstrap 3.3.7
     * D3v4
     * Typescript
-    * SystemJS (A productionbuild would use AOT, not SystemJs)
+    * SystemJS
    
 # Adding Plugins
 
