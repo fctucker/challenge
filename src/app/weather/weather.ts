@@ -9,7 +9,7 @@ export abstract class Weather {
     public enabled: boolean = false;
     public gravity: {} = {dx: 0, dy: 5};
     private subscription: Subscription = null;
-    public isTransitioningOut: boolean = false;
+    isTransitioningOut: boolean = false;
 
     constructor(public driver: Driver) {
 
@@ -55,17 +55,5 @@ export abstract class Weather {
     public run(): void {
         this.enabled = true;
     }
-
-    // private getSelection(): d3.Selection {
-    //     return this.driver.svg.selectAll('.' + this.getName());
-    // }
-    // private remove(): d3.Selection {
-    //     return this.getSelection().remove();
-    // }
-    //
-    // private getNumParticles(): number {
-    //     return this.getSelection().size();
-    // }
-
 
 }

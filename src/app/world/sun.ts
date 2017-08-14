@@ -1,5 +1,5 @@
 import {WorldObject} from "./world-object";
-import {appHeight, appWidth} from "../util/constants";
+import {appWidth} from "../util/constants";
 import * as d3 from 'd3';
 
 export class Sun extends WorldObject {
@@ -11,6 +11,7 @@ export class Sun extends WorldObject {
     private translateYOffset: number = 4.5 * this.r;
 
     initialize(): void {
+
         this.isShowing = false;
         var cx: number = appWidth + 3 * this.r;
         var cy: number = -3 * this.r;
@@ -35,7 +36,7 @@ export class Sun extends WorldObject {
     }
 
     show(): void {
-        
+
         if (!this.isShowing) {
             this.isShowing = true;
             var attributes: { [name: string]: any } = {
