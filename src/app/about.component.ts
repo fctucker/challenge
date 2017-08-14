@@ -1,8 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
-
-import * as d3 from 'd3';
-import $ from 'jquery';
 
 @Component({
     selector: 'challenge',

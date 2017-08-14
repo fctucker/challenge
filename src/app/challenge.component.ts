@@ -12,7 +12,7 @@ import {Weather} from "./weather/weather";
 import {Sun} from "./world/sun";
 import {Clear} from "./weather/plugins/clear";
 import {Snow} from "./weather/plugins/snow";
-import {Eclipse, EclipseMoon} from "./weather/plugins/eclipse";
+import {Eclipse} from "./weather/plugins/eclipse";
 import {Stars} from "./world/stars";
 
 

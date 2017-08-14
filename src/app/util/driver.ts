@@ -1,7 +1,6 @@
 import {EventEmitter, Injectable, OnDestroy, OnInit} from "@angular/core";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
 import {Subscription} from "rxjs/Subscription";
-import {Ground} from "../world/ground";
 import {WorldObject} from "../world/world-object";
 import {Weather} from "../weather/weather";
 

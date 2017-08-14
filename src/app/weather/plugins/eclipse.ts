@@ -2,7 +2,7 @@ import {Weather} from "../weather";
 import {Sky} from "../../world/sky";
 import {Clouds} from "../../world/clouds";
 import {Sun} from "../../world/sun";
-import {appHeight, appWidth} from "../../util/constants";
+import {appWidth} from "../../util/constants";
 import {Driver} from "../../util/driver";
 import {WorldObject} from "../../world/world-object";
 import * as d3 from 'd3';

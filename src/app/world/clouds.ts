@@ -1,5 +1,5 @@
 import {WorldObject} from "./world-object";
-import {appHeight, appWidth} from "../util/constants";
+import {appWidth} from "../util/constants";
 import * as d3 from 'd3';
 
 export class Clouds extends WorldObject {
