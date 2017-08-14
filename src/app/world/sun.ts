@@ -35,16 +35,19 @@ export class Sun extends WorldObject {
     }
 
     show(): void {
+        
         if (!this.isShowing) {
             this.isShowing = true;
             var attributes: { [name: string]: any } = {
                 transform: 'translate(-' + this.translateXOffset + ',' + this.translateYOffset + ')'
             };
             this.transitionAttributes(attributes, 1000, d3.easeBounceInOut);
+
         }
     }
 
     hide(): void {
+
         if (this.isShowing) {
             this.isShowing = false;
             var attributes: { [name: string]: any } = {

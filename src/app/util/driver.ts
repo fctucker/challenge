@@ -18,12 +18,15 @@ export class Driver {
     private components: { [name: string]: WorldObject } = {};
     private weatherTypes: { [name: string]: Weather } = {};
 
+    public windSpeed: number = 0;
+    public windDirection: string = 'RIGHT';
+
     constructor() {
 
     }
 
     play(): void {
-        this.timer = new TimerObservable(0, 10);
+        this.timer = new TimerObservable(0, 20);
         this.subscription = this.timer.subscribe((time: number) => {
             this.emitter.emit('tick');
         });
@@ -71,4 +74,6 @@ export class Driver {
         }
         return output;
     }
+
+
 }

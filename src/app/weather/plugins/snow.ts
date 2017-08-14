@@ -2,9 +2,6 @@ import {Weather} from "../weather";
 import {Sky} from "../../world/sky";
 import {Clouds} from "../../world/clouds";
 import {Sun} from "../../world/sun";
-import {Wind} from "../wind";
-import {Observable} from "rxjs/Observable";
-import {selection} from "d3-selection";
 import {appHeight} from "../../util/constants";
 import {Ground} from "../../world/ground";
 
@@ -57,24 +54,13 @@ export class Snow extends Weather {
             var r: number = parseInt(flake.getAttribute('r'));
 
 
-            if (cy + r + dy > appHeight-(<Ground>this.driver.getComponent('ground')).groundLevel) {
+            if (cy + r + dy > appHeight - (<Ground>this.driver.getComponent('ground')).groundLevel) {
                 flake.remove();
             } else {
                 flake.setAttribute('cx', cx + dx);
                 flake.setAttribute('cy', cy + dy);
             }
         })
-    }
-
-    getWind(): Wind {
-        return {
-            forceX: 5,
-            forceY: 0
-        };
-    }
-
-    getDensity(): number {
-        return 100;
     }
 
 

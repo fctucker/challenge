@@ -2,12 +2,12 @@ import {Weather} from "../weather";
 import {Sky} from "../../world/sky";
 import {Clouds} from "../../world/clouds";
 import {Sun} from "../../world/sun";
-import {Wind} from "../wind";
 
 export class Clear extends Weather {
 
 
     transitionIn(): Promise {
+
 
         var sky: Sky = <Sky>this.driver.getComponent('sky');
         sky.transitionAttributes({'fill': '#6698FF'}, 1000);
@@ -19,6 +19,7 @@ export class Clear extends Weather {
         sun.show();
 
         return Promise.all([sky.ready(), sun.ready(), clouds.ready()]);
+
     }
 
     getName(): string {
@@ -36,12 +37,6 @@ export class Clear extends Weather {
     moveParticles(dx: number, dy: number): void {
         // do nothing, weather is clear
     }
-
-    getWind(): Wind {
-        return {forceX: 0, forceY: 0};
-    }
-
-
 
 
 }

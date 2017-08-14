@@ -13,23 +13,42 @@ import {Sun} from "./world/sun";
 import {Clear} from "./weather/plugins/clear";
 import {Snow} from "./weather/plugins/snow";
 
+
 @Component({
     selector: 'challenge',
     template: `
         <div class="row">
-            <div class="col-md-4 text-center" style="padding-top: 10px;">
+            <div class="col-md-3 text-left col-md-offset-1" style="padding-top: 10px;">
 
 
-                <label class="radio-inline" *ngFor="let w of weatherTypes">
+                <label class="radio" *ngFor="let w of weatherTypes">
                     <input type="radio" name="weather-type" id="{{w.getName()}}"
                            value="{{w.getName()}}" [disabled]="state!='PLAYING'"
                            [(ngModel)]="weatherTypeName" (change)="changeWeatherType()">
                     {{w.getLabel()}}
                 </label>
-
-
             </div>
-            <div class="col-md-7 text-right" style="padding-top: 10px;">
+            <div class="col-md-2 text-center" style="padding-top: 10px;">
+                Wind Speed
+                <input id="wind-speed" type="range" min="0" max="50" step="1" [(ngModel)]="windSpeed"
+                       (change)="changeWind()"/>
+            </div>
+            <div class="col-md-2 text-text-left" style="padding-top: 10px;">
+                Wind Direction
+                <label class="radio">
+                    <input type="radio" name="wind-direction" id="wind-left" value="LEFT" [disabled]="state!='PLAYING'"
+                           [(ngModel)]="windDirection" (change)="changeWind()">
+                    Left
+                </label>
+                <label class="radio">
+                    <input type="radio" name="wind-direction" id="wind-right" value="RIGHT"
+                           [disabled]="state!='PLAYING'"
+                           [(ngModel)]="windDirection" (change)="changeWind()">
+                    Right
+                </label>
+            </div>
+
+            <div class="col-md-4 text-right" style="padding-top: 10px;">
                 <button [disabled]="isTransitining" class="btn" [ngClass]="btnClass" (click)="toggleState()">{{stateLabel}}&nbsp;&nbsp;&nbsp;<i
                         class="fa" [ngClass]="iconClass"></i></button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -57,6 +76,10 @@ export class ChallengeComponent implements OnInit, OnDestroy {
     public weatherType: Weather = null;
     public retriggerWeather: boolean = false;
     public isTransitining: boolean = false;
+
+    public windSpeed: number = 0;
+    public windDirection: string = 'RIGHT';
+
 
     constructor(public driver: Driver) {
 
@@ -138,16 +161,24 @@ export class ChallengeComponent implements OnInit, OnDestroy {
             if (this.weatherType != null) {
                 this.weatherType.transitionOut();
             }
-            newWeatherType.transitionIn().then(() => {
+            this.weatherType = newWeatherType;
+            this.weatherType.transitionIn().then(() => {
                 this.isTransitining = false;
-                newWeatherType.enabled = true;
-                newWeatherType.run();
+                this.weatherType.enabled = true;
+                this.weatherType.run();
 
             });
-            this.weatherType = newWeatherType;
 
 
         }
     }
+
+    changeWind(): void {
+        // this.driver.setWind(this.windDirection, this.windSpeed);
+        console.log('wind', this.windDirection, this.windSpeed);
+        this.driver.windSpeed = this.windSpeed;
+        this.driver.windDirection = this.windDirection;
+    }
+
 
 }
