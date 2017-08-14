@@ -14,7 +14,7 @@ To Run the solution on your local machine please follow the instructions below:
 
 1. Install nodejs version 7.10.1
 2. Git clone the project `git clone https://github.com/fctucker/challenge.git`
-3. On the command line, navigate the the project and run the following command: `npm install && npm run serve`.  THis should automaticlaly open a tab on your browser.  If not, you can navigate to the following URL to view the application: [http://localhost:3000/about](http://localhost:3000/about)
+3. On the command line, navigate to the the project and run the following command: `npm install && npm run serve`.  This should automatically open a tab on your browserto the application.  If not, you can navigate to the following URL to view the application: [http://localhost:3000/about](http://localhost:3000/about)
 
 # Description
 

@@ -7,7 +7,7 @@
     "build": "tsc -p src/ && sass:watch && font-awesome",
     "build:watch": "tsc -p src/ -w && sass:watch ",
     "serve": "lite-server -c=bs-config.json",
-    "start": "concurrently 'npm run font-awesome' 'npm run build:watch' 'npm run sass' 'npm run serve'",
+    "start": "concurrently 'npm run font-awesome' 'npm run build:watch' 'npm run sass' 'npm run start'",
     "sass": "node-sass --output-style compressed --recursive -o src/styles/ --source-map true --source-map-contents src/styles/main.scss",
     "sass:watch": "node-sass -w --output-style compressed --recursive -o src/styles/ --source-map true --source-map-contents src/styles/main.scss",
     "font-awesome": "cp node_modules/font-awesome/fonts/* src/fonts"
